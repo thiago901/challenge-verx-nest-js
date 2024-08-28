@@ -73,3 +73,62 @@ $ npm run test
 # test coverage
 $ npm run test:cov
 ```
+
+
+## CURLs
+### Unauthenticate
+```bash
+curl --location --request POST 'localhost:3000/sessions' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email":"mail@mail.com",
+    "password":"123456"
+}'
+
+```
+
+```bash
+curl --location --request POST 'localhost:3000/users' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email":"mail@mail.com",
+    "password":"123456",
+    "name":"Thiago"
+}'
+```
+### Authenticate
+
+```bash
+curl --location 'localhost:3000/users' \
+--header 'Authorization: Bearer TOKEN'
+```
+
+```bash
+curl --location 'localhost:3000/users/61d70ed0-0233-465e-8983-fb7d10c4f09c' \
+--header 'Authorization: Bearer TOKEN'
+```
+
+
+```bash
+curl --location --request PUT 'localhost:3000/users/61d70ed0-0233-465e-8983-fb7d10c4f09c' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer TOKEN' \
+--data-raw '{
+    "email":"mail@mail.com",
+    "password":"1234567",
+    "name":"John Doe"
+}'
+
+```
+
+```bash
+curl --request DELETE \
+  --url http://localhost:3000/users/4c60a31f-30d8-46c2-a990-ee46923a436a \
+  --header 'Authorization: Bearer TOKEN' 
+```
+
+
+
+
+
+
