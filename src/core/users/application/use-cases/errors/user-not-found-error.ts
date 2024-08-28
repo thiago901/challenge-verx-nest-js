@@ -1,7 +1,7 @@
-import { AppError } from "@shared/errors/AppError";
+import { AppError } from '@shared/errors/AppError';
 
 export class UserNotFoundError extends AppError {
   constructor() {
-    super('User not found',400)
+    super('User not found', 400);
   }
 }

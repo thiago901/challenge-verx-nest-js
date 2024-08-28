@@ -19,7 +19,7 @@ export class DesactivateOneUserByIdUseCase {
   public async execute({ id }: RequestProps): Promise<ResponseProps> {
     const user = await this.userRepository.findById(id);
     if (!user) {
-      throw new UserNotFoundError()
+      throw new UserNotFoundError();
     }
     user.active = false;
     await this.userRepository.update(user);

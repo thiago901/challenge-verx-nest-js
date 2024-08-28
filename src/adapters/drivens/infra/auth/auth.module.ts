@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {  PassportModule } from '@nestjs/passport';
+import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
 import { JWTStrategy } from './jwt.strategy';
@@ -11,7 +11,7 @@ import { EnvModule } from '../envs/env.module';
   imports: [
     PassportModule,
     JwtModule.registerAsync({
-      imports:[EnvModule],
+      imports: [EnvModule],
       global: true,
       inject: [EnvService],
       useFactory(env: EnvService) {
@@ -25,6 +25,10 @@ import { EnvModule } from '../envs/env.module';
       },
     }),
   ],
-  providers: [EnvService,JWTStrategy,{provide:APP_GUARD,useClass:JwtAuthGuard}],
+  providers: [
+    EnvService,
+    JWTStrategy,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
 })
 export class AuthModule {}

@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import {
   Body,
   Controller,
@@ -9,13 +7,9 @@ import {
   Param,
   Post,
   Put,
-  UseFilters,
-  UseGuards,
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
-
-
 
 import { Public } from '@adapters/drivens/infra/auth/public';
 
@@ -25,13 +19,18 @@ import { ListAllUsersUseCase } from '@application/users/application/use-cases/li
 import { CreateUserUseCase } from '@application/users/application/use-cases/create-user-use-case';
 import { UpdateUserUseCase } from '@application/users/application/use-cases/update-user-use-case';
 
-
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import { CreateUserProps, createUserSchema } from './validations/create-user.validate';
+import {
+  CreateUserProps,
+  createUserSchema,
+} from './validations/create-user.validate';
 
 import { LoggingInterceptor } from '../Interceptors/custom-logger-routes';
 import { UserMapping } from '../mapping/user-mapping';
-import { UpdateUserProps, updateUserSchema } from './validations/update-user.validate';
+import {
+  UpdateUserProps,
+  updateUserSchema,
+} from './validations/update-user.validate';
 
 @Controller('/users')
 @UseInterceptors(LoggingInterceptor)
@@ -48,7 +47,6 @@ export class UserController {
   @Public()
   @UsePipes(new ZodValidationPipe(createUserSchema))
   async create(@Body() body: CreateUserProps) {
-    
     const { email, name, password } = body;
 
     const user = await this.createUserUseCase.execute({
@@ -75,8 +73,7 @@ export class UserController {
     const { user } = await this.findOneUserByIdUseCase.execute({
       id,
     });
-    
-    
+
     return {
       user: user ? UserMapping.toView(user) : null,
     };
@@ -91,9 +88,14 @@ export class UserController {
   }
   @Put('/:id')
   @UsePipes(new ZodValidationPipe(updateUserSchema))
-  async update(@Param('id') id: string,@Body() body: UpdateUserProps) {
-    const {email,name,password } = body
-    const { user } = await this.updateUserUseCase.execute({id, email,name,password});
+  async update(@Param('id') id: string, @Body() body: UpdateUserProps) {
+    const { email, name, password } = body;
+    const { user } = await this.updateUserUseCase.execute({
+      id,
+      email,
+      name,
+      password,
+    });
     return {
       user: UserMapping.toView(user),
     };

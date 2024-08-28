@@ -4,12 +4,10 @@ import { UserRepositoryInterface } from '../ports/repositories/user-repository.i
 import { HasherProvider } from '../ports/providers/hasher.provider';
 import { EncrypterProvider } from '../ports/providers/encrypter.provider';
 import { CrendentialsNotMatchFoundError } from './errors/credentials-not-match-error';
-import { UserNotFoundError } from './errors/user-not-found-error';
 
-
-interface RequestProps{
-  email:string, 
-  password:string
+interface RequestProps {
+  email: string;
+  password: string;
 }
 @Injectable()
 export class SessionUserUseCase {
@@ -24,11 +22,14 @@ export class SessionUserUseCase {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new UserNotFoundError()
+      throw new CrendentialsNotMatchFoundError();
     }
-    const isPasswordValid = await this.hasherProvider.compare(password, user.password);
+    const isPasswordValid = await this.hasherProvider.compare(
+      password,
+      user.password,
+    );
     if (!isPasswordValid) {
-      throw new CrendentialsNotMatchFoundError()
+      throw new CrendentialsNotMatchFoundError();
     }
     const accessToken = await this.encrypterProvider.encrypt({ sub: user.id });
 

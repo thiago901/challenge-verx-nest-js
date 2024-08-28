@@ -2,7 +2,6 @@ import { UserRepositoryInterface } from '@application/users/application/ports/re
 import { User } from '@application/users/domain/user';
 import { Injectable } from '@nestjs/common';
 
-
 import { PrismaService } from '../prisma.service';
 import { UserMapping } from './mappings/user-mapping';
 
@@ -11,7 +10,7 @@ export class UserRepository implements UserRepositoryInterface {
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({ where: { active: true } });
     return users.map(UserMapping.toDomain);
   }
   async update(data: User): Promise<User> {
@@ -33,7 +32,7 @@ export class UserRepository implements UserRepositoryInterface {
     const user = await this.prisma.user.findUnique({ where: { id: id } });
 
     if (user) {
-      return new User(user,user.id);
+      return new User(user, user.id);
     } else {
       return null;
     }
@@ -48,7 +47,7 @@ export class UserRepository implements UserRepositoryInterface {
       return null;
     }
 
-    return new User(user,user.id);
+    return new User(user, user.id);
   }
 
   async create(user: User): Promise<User> {
@@ -62,6 +61,6 @@ export class UserRepository implements UserRepositoryInterface {
       },
     });
 
-    return new User(user,user.id);
+    return new User(user, user.id);
   }
 }

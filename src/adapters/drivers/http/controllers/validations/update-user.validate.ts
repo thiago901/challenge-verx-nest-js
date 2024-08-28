@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const updateUserSchema = z.object({
   name: z.string().optional(),
@@ -6,5 +6,4 @@ export const updateUserSchema = z.object({
   password: z.string().min(6).optional(),
 });
 
-
-export type UpdateUserProps = z.infer<typeof updateUserSchema>
+export type UpdateUserProps = z.infer<typeof updateUserSchema>;

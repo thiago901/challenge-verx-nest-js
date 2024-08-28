@@ -22,7 +22,7 @@ describe(CreateUserUseCase.name, () => {
         },
         {
           provide: HasherProvider,
-          useClass: FakeHashPassword
+          useClass: FakeHashPassword,
         },
       ],
     }).compile();
@@ -64,6 +64,5 @@ describe(CreateUserUseCase.name, () => {
     });
 
     await expect(execution).rejects.toThrow(UserAlreadyExistsError);
-
   });
 });

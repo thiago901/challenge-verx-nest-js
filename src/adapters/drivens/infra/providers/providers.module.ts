@@ -1,11 +1,8 @@
-import { HasherProvider } from "@application/users/application/ports/providers/hasher.provider";
-import { Module } from "@nestjs/common";
-import { BcryptHash } from "./bcrypt-hasher";
-import { JWTEncrypter } from "./jwt-encrypter";
-import { EncrypterProvider } from "@application/users/application/ports/providers/encrypter.provider";
-
-
-
+import { HasherProvider } from '@application/users/application/ports/providers/hasher.provider';
+import { Module } from '@nestjs/common';
+import { BcryptHash } from './bcrypt-hasher';
+import { JWTEncrypter } from './jwt-encrypter';
+import { EncrypterProvider } from '@application/users/application/ports/providers/encrypter.provider';
 
 @Module({
   providers: [
@@ -18,6 +15,6 @@ import { EncrypterProvider } from "@application/users/application/ports/provider
       useClass: JWTEncrypter,
     },
   ],
-  exports: [HasherProvider,EncrypterProvider],
+  exports: [HasherProvider, EncrypterProvider],
 })
 export default class ProvidersModule {}

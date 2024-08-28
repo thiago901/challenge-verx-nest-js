@@ -54,7 +54,5 @@ describe(DesactivateOneUserByIdUseCase.name, () => {
     });
 
     await expect(execution).rejects.toThrow(UserNotFoundError);
-
-
   });
 });

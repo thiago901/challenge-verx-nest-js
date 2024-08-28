@@ -17,17 +17,17 @@ type CheckInBodySchema = z.infer<typeof checkInBodySchema>;
 @Controller('/sessions')
 @UseInterceptors(LoggingInterceptor)
 export class AuthController {
-  constructor(
-    private sessionUserUseCase: SessionUserUseCase,
-  ) {}
+  constructor(private sessionUserUseCase: SessionUserUseCase) {}
 
   @Post('/')
   @Public()
   async session(@Body() body: CheckInBodySchema) {
     const { email, password } = body;
 
-    const {access_token} = await this.sessionUserUseCase.execute({email,password});
-
+    const { access_token } = await this.sessionUserUseCase.execute({
+      email,
+      password,
+    });
 
     return {
       access_token,

@@ -1,8 +1,7 @@
-import { AppError } from "@shared/errors/AppError";
-
+import { AppError } from '@shared/errors/AppError';
 
 export class CrendentialsNotMatchFoundError extends AppError {
   constructor() {
-    super('Crendentials not match',403)
+    super('Crendentials not match', 403);
   }
 }

@@ -13,6 +13,6 @@ import { PrismaService } from './prisma.service';
       useClass: UserRepository,
     },
   ],
-  exports: [PrismaService,UserRepositoryInterface],
+  exports: [PrismaService, UserRepositoryInterface],
 })
 export default class DatabaseModule {}

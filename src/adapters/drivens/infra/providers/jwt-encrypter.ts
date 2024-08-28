@@ -1,17 +1,13 @@
+import { EncrypterProvider } from '@application/users/application/ports/providers/encrypter.provider';
 
-import { EncrypterProvider } from "@application/users/application/ports/providers/encrypter.provider";
-
-import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class JWTEncrypter implements EncrypterProvider{
-  constructor(private jwtService:JwtService){}
+export class JWTEncrypter implements EncrypterProvider {
+  constructor(private jwtService: JwtService) {}
 
-
-  encrypt(payload: Record<string,unknown>): Promise<string> {  
+  encrypt(payload: Record<string, unknown>): Promise<string> {
     return this.jwtService.signAsync(payload);
   }
-  
 }

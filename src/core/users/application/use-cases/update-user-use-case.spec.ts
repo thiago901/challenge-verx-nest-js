@@ -7,8 +7,6 @@ import { User } from '@application/users/domain/user';
 import { HasherProvider } from '../ports/providers/hasher.provider';
 import { FakeHashPassword } from '../ports/providers/fakes/fake-hash-password';
 
-
-
 import { UserNotFoundError } from './errors/user-not-found-error';
 import { UpdateUserUseCase } from './update-user-use-case';
 
@@ -27,14 +25,12 @@ describe(UpdateUserUseCase.name, () => {
         },
         {
           provide: HasherProvider,
-          useClass: FakeHashPassword
+          useClass: FakeHashPassword,
         },
       ],
     }).compile();
 
-    hasher = module.get<HasherProvider>(
-      HasherProvider,
-    );
+    hasher = module.get<HasherProvider>(HasherProvider);
     userRepository = module.get<UserRepositoryInterface>(
       UserRepositoryInterface,
     );
@@ -50,26 +46,24 @@ describe(UpdateUserUseCase.name, () => {
     const user = new User({
       email: 'johnDoe@mail.com',
       password: await hasher.hash('123456'),
-      name:'John',
-      active:true
-    })
-    await userRepository.create(user)
+      name: 'John',
+      active: true,
+    });
+    await userRepository.create(user);
     const response = await sut.execute({
-      id:user.id,
-      name:'new-name'
+      id: user.id,
+      name: 'new-name',
     });
     expect(response.user.name).toEqual('new-name');
   });
 
   it('should not user session when user not exists', async () => {
-
     const execution = sut.execute({
       email: 'johnDoe@mail.com',
       password: '123456',
-      id:"non-exists"
+      id: 'non-exists',
     });
 
     await expect(execution).rejects.toThrow(UserNotFoundError);
-
   });
 });

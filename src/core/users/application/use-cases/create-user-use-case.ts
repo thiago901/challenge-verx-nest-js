@@ -5,7 +5,6 @@ import { User } from '@application/users/domain/user';
 import { HasherProvider } from '../ports/providers/hasher.provider';
 import { UserAlreadyExistsError } from './errors/user-already-exists-error';
 
-
 @Injectable()
 export class CreateUserUseCase {
   constructor(
@@ -17,13 +16,13 @@ export class CreateUserUseCase {
   public async execute({ email, name, password }: CreateUserDTO) {
     const hasUser = await this.userRepository.findByEmail(email);
     if (hasUser) {
-      throw new UserAlreadyExistsError()
+      throw new UserAlreadyExistsError();
     }
     const hashedPassword = await this.hashPassword.hash(password);
     const user = new User({
       email,
       name,
-      password:hashedPassword,
+      password: hashedPassword,
       active: true,
     });
 

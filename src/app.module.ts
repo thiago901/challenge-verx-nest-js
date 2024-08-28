@@ -6,7 +6,6 @@ import ProvidersModule from '@adapters/drivens/infra/providers/providers.module'
 import { AuthModule } from '@adapters/drivens/infra/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
-import { EnvService } from '@adapters/drivens/infra/envs/env.service';
 import { schemaEnv } from '@adapters/drivens/infra/envs/env';
 import { EnvModule } from '@adapters/drivens/infra/envs/env.module';
 import DatabaseModule from '@adapters/drivens/infra/database/prisma/database.module';
@@ -17,7 +16,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     HTTPModule,
     AuthModule,
     EnvModule,
-   
+
     ConfigModule.forRoot({
       validate: (env) => schemaEnv.parse(env),
       isGlobal: true,
@@ -30,12 +29,13 @@ import { ThrottlerModule } from '@nestjs/throttler';
       module: DatabaseModule,
       global: true,
     },
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 10,
-    }]),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
   ],
   controllers: [],
-  
 })
 export class AppModule {}

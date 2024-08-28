@@ -15,7 +15,7 @@ import { UpdateUserUseCase } from './application/use-cases/update-user-use-case'
     FindOneUserByIdUseCase,
     ListAllUsersUseCase,
     UpdateUserUseCase,
-    SessionUserUseCase
+    SessionUserUseCase,
   ],
   exports: [
     CreateUserUseCase,
@@ -23,7 +23,7 @@ import { UpdateUserUseCase } from './application/use-cases/update-user-use-case'
     FindOneUserByIdUseCase,
     ListAllUsersUseCase,
     SessionUserUseCase,
-    UpdateUserUseCase
+    UpdateUserUseCase,
   ],
 })
 export class UserModule {}

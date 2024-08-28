@@ -7,15 +7,14 @@ import DatabaseModule from '@adapters/drivens/infra/database/prisma/database.mod
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 
-
 @Module({
-  imports: [DatabaseModule,UserModule],
+  imports: [DatabaseModule, UserModule],
   controllers: [UserController, AuthController],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard
-    }
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class HTTPModule {}
